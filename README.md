@@ -1,12 +1,16 @@
 # P7_AlexandrePascual_MartiVila
+Participants: Alexandre Pascual i Marti Vila
 
-# Practica-7 - Reproducción de audio con ESP32
-Participants: Alexandre Pascual / Marti Vila
+# Reproducció d'audio 
 
-### Objetivo de la pràctica
-En esta práctica se pretende trabajar con la reproducción de audio utilizando el microcontrolador ESP32. Se explora el uso de librerías específicas para reproducir archivos de audio tanto embebidos como desde una tarjeta SD.
 
-## Parte 1
+### Objectiu
+
+Treballarem en la reproducció d'audio amb la ESP32-S3 afegint llibreries especifiques per a la reproducció d'arxius d'audio.
+
+## Part 1
+
+### *Codi*
 
 ```c++
 #include "AudioGeneratorAAC.h"
@@ -36,18 +40,24 @@ delay(1000);
 }
 
 ```
-### Explicación
-En esta primera parte, el objetivo es reproducir un archivo de audio que está guardado en la memoria del propio microcontrolador utilizando *PROGMEM*. Se utilizan varias librerías específicas para manejar la decodificación AAC y la salida por el bus I2S.
+### **Explicació**
 
-* AudioFileSourcePROGMEM: Permite leer archivos de audio embebidos en la memoria flash.
-* AudioGeneratorAAC: Se encarga de decodificar el archivo en formato AAC.
-* AudioOutputI2S: Controla la salida de audio usando el protocolo I2S.
-* sampleaac: Es el archivo de audio embebido.
+Utilitzatnt 'PROGMEM', reproduim un audio que esta a la memoria de la pròpia ESP32-S3 afegint-hi les llibreries necessàries per a la descodificació AAC i la sortida per el bus **I2S**.
+Les llibreires són les següents:
 
-El código configura los pines de salida para I2S (7, 6 y 4), inicia la reproducción, y continúa en bucle mientras se reproduce el audio. Al finalizar, se detiene y espera un segundo.
+1. AudioFileSourcePROGMEM: Permet llegir arxius d'audio en la memoria flash.
+2. AudioGeneratorAAC: Decodifica l'arxiu en format AAC.
+3. AudioOutputI2S: Controla la sortida d'audio amb el protocolo I2S.
+4. sampleaac: Es l'arxiu d'audio.
+
+Aquest codi configura els pins de sortida per l'I2S en 7,6 i 4. 
+Repdrodueix l'audio i es manté en bucle durant es reprodueix i, quan acaba, para i espera 1 segon.
+   
 
 
-## Parte 2
+## Part 2
+
+### *Codi*
 
 ```c++
 
@@ -113,19 +123,11 @@ void audio_showstreaminfo(const char *info){
 
 ```
 
-### Explicación
-En esta segunda parte, reproducimos un archivo MP3 almacenado en una tarjeta SD. Configuramos manualmente los pines SPI para acceder a la tarjeta y los pines I2S para la salida de audio.
+### **Explicació**
 
-* SD.begin(SD_CS): Inicializa la tarjeta SD.
-* connecttoFS(SD, "prova.mp3"): Establece conexión al archivo MP3 llamado prova.mp3.
-* audio.loop(): Mantiene la reproducción en ejecución.
+Reproduïm un arxiu de tipus MP3 a una tarjeta SD configurant els pins SPI, per al accés a la tarjeta, i I2S, per a la sortida d'audio.
+El SD.begin inicialitza la tarjeta, el connecttoFS connecta l'arxiu MP3 i el bucle manté la reproducció.
 
 
-### Conclusión
-Esta práctica permite familiarizarse con el manejo de audio en sistemas embebidos usando el ESP32. Se trabajan dos formas diferentes de reproducción:
 
-* Desde la memoria flash (PROGMEM): útil para archivos pequeños y rápidos de reproducir sin necesidad de almacenamiento externo.
-* Desde una tarjeta SD: ideal para almacenar archivos más grandes y reproducirlos directamente.
 
-Ambos métodos usan el protocolo I2S, que es estándar en la salida de audio digital para microcontroladores.
-Además, se implementan varias funciones opcionales para mostrar información adicional como bitrate, título, metadatos y estado del flujo de audio.
